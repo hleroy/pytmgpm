@@ -3,7 +3,7 @@
 '''
 Tide calculator based on "La Table des Marées des Grands Ports du Monde" (SHOM)
 
-Please review the readme file carefully as it includes important information before you start using this tool.
+Please review the readme file carefully before using this software.
 
 @author:     Hervé Le Roy
 @contact:    hleroy@hleroy.com
