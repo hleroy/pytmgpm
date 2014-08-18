@@ -9,36 +9,52 @@ The book was later withdrawn from publication for security concerns (according t
 
 PyTmgpm is provided for educational purposes only, in the hope that it will be useful to understand the principles of tide calculations. **It must not by used for navigation.**
 
-
 Prerequisites
 -------------
 
 PyTmgpm was tested with Python 3.4 on Uubuntu 14.04. It should run fine with any Python 3.x flavors.
-
 
 Usage
 -----
 
 Firt import tmgpm (make sure it's on your PYTHONPATH)
 
-:::python
+```
+#!python
+
   import tmgpm
 
+```
+
 You can create a Tmgpm object, then set the station and date
-:::python
+
+```
+#!python
+
   tide = tmgpm.Tmgpm()
   tide.set_station('CONCARNEAU')
   tide.set_date(2014, 8, 15)      # 15th August 2014
+
+```
   
 Or you can create the object, set the station and date at the same time
-:::python
+
+```
+#!python
+
   tide = tmgpm.Tmgpm('CONCARNEAU', 2014, 8, 15)
 
+```
+
 Calculate and print tide height at 09h30
-:::python
-  h = tide.height(9.5)    # Note that you must provide time with decimal minutes (e.g. 9.5 for 09h30)
+
+```
+#!python
+
+  h = tide.height(9.5) # You must provide time with decimal minutes (e.g. 9.5 for 09h30)
   print(h)
 
+```
 
 Copyright and license
 ---------------------
