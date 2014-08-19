@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import unittest
 import datetime
+import unittest
+
 from tmgpm import Tmgpm
 
 
@@ -12,7 +13,7 @@ class TestTmgpmDefaultConstructor(unittest.TestCase):
         self.tide = Tmgpm()
 
     def test_default_station(self):
-        # check default station name is BREST       
+        # check default station name is BREST
         self.assertEqual(self.tide.station_name, 'BREST')
 
     def test_default_date(self):
@@ -27,7 +28,7 @@ class TestTmgpmConstructor(unittest.TestCase):
         self.tide = Tmgpm('CONCARNEAU', 2014, 1, 1)
 
     def test_default_station(self):
-        # check station name is properly set       
+        # check station name is properly set
         self.assertEqual(self.tide.station_name, 'CONCARNEAU')
 
     def test_default_date(self):
@@ -50,24 +51,33 @@ class TestTmgpmSetDate(unittest.TestCase):
         # check default date is today
         self.assertRaises(ValueError, self.tide.set_date, 2100, 3, 1)
 
+
 class TestTmgpmGetStationList(unittest.TestCase):
 
     def test_returns_a_list(self):
         # check we get a list
         station_list = Tmgpm.get_station_list()
-        self.assertTrue(type(station_list) is list)
-        
+        self.assertTrue(isinstance(station_list, list))
+
     def test_list_is_not_empty(self):
         # check the list is not empty
         station_list = Tmgpm.get_station_list()
         self.assertTrue(len(station_list) > 0)
-        
+
     def test_list_contains_brest(self):
         # check the list contains at least BREST station
         station_list = Tmgpm.get_station_list()
         self.assertTrue('BREST' in station_list)
 
 
+class TestTmgpmHarmonicConstituents(unittest.TestCase):
+
+    def test_concarneau_1982(self):
+        # Check that tide heigh in CONCARNEAU on the 1st January 1982
+        # at 00:00 is 2302 mm
+        tide = Tmgpm('CONCARNEAU', 1982, 1, 1)
+        self.assertEqual(int(tide.height(0)), 2302)
+
+
 if __name__ == '__main__':
     unittest.main()
-
