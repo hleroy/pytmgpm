@@ -67,10 +67,6 @@ class TestTmgpmGetStationList(unittest.TestCase):
         station_list = Tmgpm.get_station_list()
         self.assertTrue('BREST' in station_list)
 
-    def test_assert_fail(self):
-        self.assertFalse(True)
-
-
 
 if __name__ == '__main__':
     unittest.main()
