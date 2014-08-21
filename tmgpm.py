@@ -25,7 +25,7 @@ class Tmgpm(object):
     stations_data = {}
     filename = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), 'tmgpm.csv')
-    with open(filename, newline='') as csvfile:
+    with open(filename) as csvfile:
         csvreader = csv.DictReader(filter(lambda row: row[0] != '#', csvfile))
         for row in csvreader:
             name = row.pop('NAME')
