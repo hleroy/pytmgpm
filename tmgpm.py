@@ -66,8 +66,8 @@ class Tmgpm(object):
         self.G = None
         self.R0 = None
         self.R24 = None
-        self.PHI0 = None
-        self.PHI24 = None
+        self.phi0 = None
+        self.phi24 = None
 
         # Set station name or defaults to BREST
         self.set_station(station_name if (station_name is not None) else "BREST")
@@ -151,13 +151,13 @@ class Tmgpm(object):
         for j in range(5):
             if j != 3:
                 Rj = self.R0[j] + t / 24.0 * (self.R24[j] - self.R0[j])
-                DELTAj = self.PHI24[j] - self.PHI0[j]
-                if DELTAj < -180:
-                    DELTAj += 360
-                if DELTAj > 180:
-                    DELTAj -= 360
-                PHIj = self.PHI0[j] + t / 24.0 * (j * 360 + DELTAj)
-                height += Rj * cos(radians(PHIj))
+                delta_j = self.phi24[j] - self.phi0[j]
+                if delta_j < -180:
+                    delta_j += 360
+                if delta_j > 180:
+                    delta_j -= 360
+                phij = self.phi0[j] + t / 24.0 * (j * 360 + delta_j)
+                height += Rj * cos(radians(phij))
 
         # and return the value
         return height
@@ -215,9 +215,9 @@ class Tmgpm(object):
 
     def _init_precalc(self):
 
-        def compute_R_and_PHI_at(t):
+        def compute_R_and_phi_at(t):
             R = [0., 0., 0., 0., 0.]
-            PHI = [0., 0., 0., 0., 0.]
+            phi = [0., 0., 0., 0., 0.]
 
             T = floor(30.6001 * (1 + self.month + 12 * floor(1 / (self.month + 1.0) + 0.7))) + floor(
                 365.25 * (self.year - floor(1 / (self.month + 1.0) + 0.7))) + self.day + t / 24 - 723258
@@ -240,15 +240,15 @@ class Tmgpm(object):
 
                     R[j] = sqrt(power(Xj, 2) + power(Yj, 2))
                     if R[j] == 0:
-                        PHI[j] = 90
+                        phi[j] = 90
                     else:
-                        PHI[j] = degrees(
+                        phi[j] = degrees(
                             acos(Xj / R[j])) * sign(degrees(asin(Yj / R[j])))
 
-            return R, PHI
+            return R, phi
 
-        self.R0, self.PHI0 = compute_R_and_PHI_at(0)
-        self.R24, self.PHI24 = compute_R_and_PHI_at(24)
+        self.R0, self.phi0 = compute_R_and_phi_at(0)
+        self.R24, self.phi24 = compute_R_and_phi_at(24)
 
     def __repr__(self):
         """Return a string containing a printable representation of a Tmgpm object"""
