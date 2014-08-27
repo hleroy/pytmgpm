@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-'''
+"""
 Tide calculator based on "La Table des Marées des Grands Ports du Monde" (SHOM)
 
-Please review the readme file carefully before using this software.
+Please review the README file carefully before using this software.
+"""
 
-@author:     Hervé Le Roy
-@contact:    hleroy@hleroy.com
-'''
+__author__ = "Hervé Le Roy"
+__email__ = "hleroy@hleroy.com"
 
 import csv
 import datetime
-from math import cos, acos, sin, asin, degrees, radians, floor, sqrt, pow, copysign
+from math import cos, acos, sin, asin, degrees, radians, floor, sqrt, pow as power, copysign
 import os
 
 
@@ -26,7 +26,7 @@ class Tmgpm(object):
     filename = os.path.join(
         os.path.abspath(os.path.dirname(__file__)), 'tmgpm.csv')
     with open(filename) as csvfile:
-        csvreader = csv.DictReader(filter(lambda row: row[0] != '#', csvfile))
+        csvreader = csv.DictReader(row for row in csvfile if not row.startswith('#'))
         for row in csvreader:
             name = row.pop('NAME')
             stations_data[name] = row
@@ -238,7 +238,7 @@ class Tmgpm(object):
                         Xj += self.A[j][i] * cos(radians(Vij - self.G[j][i]))
                         Yj += self.A[j][i] * sin(radians(Vij - self.G[j][i]))
 
-                    R[j] = sqrt(pow(Xj, 2) + pow(Yj, 2))
+                    R[j] = sqrt(power(Xj, 2) + power(Yj, 2))
                     if R[j] == 0:
                         PHI[j] = 90
                     else:
