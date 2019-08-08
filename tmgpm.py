@@ -89,6 +89,14 @@ class Tmgpm(object):
         """
         return list(Tmgpm.stations_data.keys())
 
+    def get_station_tz(self):
+        """Return current station timezone offset
+
+        Returns:
+          A string with the timezone offset e.g. +1.0
+        """
+        return self.UTC
+
     def set_station(self, station_name):
         """Set station name and initialize harmonic data for this station
 
