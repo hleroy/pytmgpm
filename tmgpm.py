@@ -148,7 +148,7 @@ class Tmgpm(object):
           t (float) -- Time expressed as a fractional number (e.g. 9.5 for 09h30m
 
         Returns:
-          Tide height in mmillimeters
+          integer -- Tide height in millimeters
         """
         # Initialize tide height at the station Z0 value
         # Z0 is stored in cm and the tide calculations are done in millimeters,
@@ -167,8 +167,8 @@ class Tmgpm(object):
                 phij = self.phi0[j] + t / 24.0 * (j * 360 + delta_j)
                 height += Rj * cos(radians(phij))
 
-        # and return the value
-        return height
+        # and return the value casted as an integer
+        return int(height)
 
     def _init_harmonic_data(self):
         self.A = [[0. for _ in range(11)] for _ in range(5)]
